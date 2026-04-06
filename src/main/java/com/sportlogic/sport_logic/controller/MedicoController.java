@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.sportlogic.sport_logic.model.Medico;
 import com.sportlogic.sport_logic.service.MedicoService;
+import com.sportlogic.sport_logic.service.PersonaService;
+import com.sportlogic.sport_logic.service.UsuarioService;
 
 @Controller
 @RequestMapping("/medicos")
@@ -18,6 +20,12 @@ public class MedicoController {
 
     @Autowired
     private MedicoService medicoService;
+
+    @Autowired
+    private PersonaService personaService;
+    
+    @Autowired
+    private UsuarioService usuarioService;
 
     @GetMapping
     public String listarMedicos(Model model){
@@ -27,7 +35,10 @@ public class MedicoController {
 
     @GetMapping("/nuevo")
     public String crearMedicoForm(Model model){
+
         model.addAttribute("medico", new Medico());
+        model.addAttribute("personasMedicos", usuarioService.obtenerPersonasMedicos());
+
         return "formMedico";
     }
 
@@ -39,7 +50,10 @@ public class MedicoController {
 
     @GetMapping("/editar/{id}")
     public String editarMedicoForm(@PathVariable Integer id, Model model){
+
         model.addAttribute("medico", medicoService.obtenerMedico(id));
+        model.addAttribute("personasMedicos", usuarioService.obtenerPersonasMedicos());
+
         return "formMedico";
     }
 

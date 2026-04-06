@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.sportlogic.sport_logic.model.Persona;
 import com.sportlogic.sport_logic.model.Usuario;
 import com.sportlogic.sport_logic.repository.UsuarioRepository;
 
@@ -17,6 +18,7 @@ public class UsuarioService {
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
+
 
     public List<Usuario> listarUsuarios() {
         return usuarioRepository.findAll();
@@ -35,4 +37,10 @@ public class UsuarioService {
     public void eliminarUsuario(int id) {
         usuarioRepository.deleteById(id);
     }
+
+    public List<Persona> obtenerPersonasMedicos(){
+
+    return usuarioRepository.obtenerPersonasMedicos();
+
+}
 }

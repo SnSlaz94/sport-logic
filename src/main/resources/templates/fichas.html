@@ -27,7 +27,7 @@
             <tr th:each="ficha : ${fichas}">
                 <td th:text="${ficha.id_ficha}"></td>
                 <td th:text="${ficha.jugador.persona.nombre + ' ' + ficha.jugador.persona.apellido}"></td>
-                <td th:text="${ficha.medico.nombre}"></td>
+                <td th:text="${ficha.medico.persona.nombre + ' ' + ficha.medico.persona.apellido}"></td>
                 <td th:text="${ficha.historialClinico}"></td>
                 <td th:text="${ficha.observaciones}"></td>
                 <td th:text="${ficha.fechaRevision}"></td>
