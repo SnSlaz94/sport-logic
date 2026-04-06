@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard de Entrenamientos</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">SportLogic - Entrenamientos</a>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav ms-auto">
+                    <form th:action="@{/logout}" method="post">
+                    <button class="btn btn-danger">Cerrar sesión</button>
+                    </form>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <h1 class="mb-4">Dashboard de Entrenamientos</h1>
+
+        <div class="row g-4">
+            <!-- Card Horarios -->
+            <div class="col-md-6">
+                <div class="card text-white bg-success h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">Horarios</h5>
+                        <p class="card-text">
+                            Total de horarios registrados: 
+                            <span th:text="${horariosCount}">0</span>
+                        </p>
+                        <a th:href="@{/horarios}" class="btn btn-light">Gestionar Horarios</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card Sesiones -->
+            <div class="col-md-6">
+                <div class="card text-white bg-warning h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">Sesiones de Entrenamiento</h5>
+                        <p class="card-text">
+                            Total de sesiones registradas: 
+                            <span th:text="${sesionesCount}">0</span>
+                        </p>
+                        <a th:href="@{/sesiones}" class="btn btn-light">Gestionar Sesiones</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <a th:href="@{/inicio}" class="btn btn-secondary mt-3">Volver</a>
+
+    </div>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

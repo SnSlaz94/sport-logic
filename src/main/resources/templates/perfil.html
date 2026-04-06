@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+<meta charset="UTF-8">
+<title>Mi Perfil</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+
+<body class="bg-light">
+
+<nav class="navbar navbar-dark bg-dark">
+<div class="container-fluid">
+
+<span class="navbar-brand">SportLogic</span>
+
+<a href="/inicio" class="btn btn-secondary">
+Volver
+</a>
+
+</div>
+</nav>
+
+<div class="container mt-5">
+
+<h2 class="text-center mb-4">
+Mi Perfil
+</h2>
+
+<div class="card shadow">
+
+<div class="card-body">
+
+<h4>Información de Usuario</h4>
+
+<p>
+<strong>Usuario:</strong>
+<span th:text="${usuario.username}"></span>
+</p>
+
+<p>
+<strong>Rol:</strong>
+<span th:text="${usuario.rol.nombre_rol}"></span>
+</p>
+
+<hr>
+
+<h4>Información Personal</h4>
+
+<p>
+<strong>Nombre:</strong>
+<span th:text="${usuario.persona.nombre}"></span>
+</p>
+
+<p>
+<strong>Apellido:</strong>
+<span th:text="${usuario.persona.apellido}"></span>
+</p>
+
+<p>
+<strong>Documento:</strong>
+<span th:text="${usuario.persona.documento}"></span>
+</p>
+
+<hr>
+
+<div th:if="${jugador != null}">
+
+<h4>Información Deportiva</h4>
+
+<p>
+<strong>Posición en el campo:</strong>
+<span th:text="${jugador.posicion_campo}"></span>
+</p>
+
+</div>
+
+<hr>
+
+<div th:if="${ficha != null}">
+
+<h4>Ficha Médica</h4>
+
+<p>
+<strong>Historial Clínico:</strong>
+<span th:text="${ficha.historialClinico}"></span>
+</p>
+
+<p>
+<strong>Observaciones:</strong>
+<span th:text="${ficha.observaciones}"></span>
+</p>
+
+<p>
+<strong>Fecha de revisión:</strong>
+<span th:text="${ficha.fechaRevision}"></span>
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</body>
+
+</html>

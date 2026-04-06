@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+
+<meta charset="UTF-8">
+
+<title>SportLogic Dashboard</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+
+<body class="bg-light">
+
+<!-- NAVBAR -->
+
+<nav class="navbar navbar-dark bg-dark">
+<div class="container-fluid">
+
+<span class="navbar-brand">SportLogic</span>
+
+<div>
+
+<a href="/mi-perfil" class="btn btn-primary">
+Mi perfil
+</a>
+
+<form th:action="@{/logout}" method="post" style="display:inline;">
+<button class="btn btn-danger">
+Cerrar sesión
+</button>
+</form>
+
+</div>
+
+</div>
+</nav>
+
+<!-- CONTENIDO -->
+
+<div class="container mt-5">
+
+<h2 class="text-center mb-4">Panel de Control</h2>
+
+<div class="row g-4">
+
+<!-- PERSONAS -->
+
+<div class="col-md-4" sec:authorize="hasAnyRole('ADMIN','DIRECTIVO')">
+
+<div class="card shadow">
+
+<div class="card-body text-center">
+
+<h5 class="card-title">Gestión de Personas</h5>
+
+<p class="card-text">
+Administrar datos de usuarios del sistema
+</p>
+
+<a href="/personas" class="btn btn-primary">
+Ir al módulo
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- JUGADORES -->
+
+<div class="col-md-4" sec:authorize="hasAnyRole('ADMIN','DIRECTIVO')">
+
+<div class="card shadow">
+
+<div class="card-body text-center">
+
+<h5 class="card-title">Gestión de Jugadores</h5>
+
+<p class="card-text">
+Administrar jugadores del club
+</p>
+
+<a href="/jugadores" class="btn btn-success">
+Ir al módulo
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ENTRENAMIENTOS -->
+
+<div class="col-md-4" sec:authorize="hasAnyRole('ADMIN','DIRECTIVO','ENTRENADOR')">
+
+<div class="card shadow">
+
+<div class="card-body text-center">
+
+<h5 class="card-title">Entrenamientos</h5>
+
+<p class="card-text">
+Gestionar sesiones de entrenamiento
+</p>
+
+<a href="/entrenamientos" class="btn btn-success">
+Ir al módulo
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- USUARIOS -->
+
+<div class="col-md-4" sec:authorize="hasAnyRole('ADMIN','DIRECTIVO')">
+
+<div class="card shadow">
+
+<div class="card-body text-center">
+
+<h5 class="card-title">Gestión de Usuarios</h5>
+
+<p class="card-text">
+Gestionar usuarios del sistema
+</p>
+
+<a href="/usuarios" class="btn btn-secondary">
+Ir al módulo
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- MEDICOS -->
+
+<div class="col-md-4" sec:authorize="hasAnyRole('ADMIN','DIRECTIVO')">
+
+<div class="card shadow">
+
+<div class="card-body text-center">
+
+<h5 class="card-title">Gestión Médica</h5>
+
+<p class="card-text">
+Administrar médicos del club
+</p>
+
+<a href="/medicos" class="btn btn-info">
+Ir al módulo
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- FICHAS MEDICAS -->
+
+<div class="col-md-4" sec:authorize="hasAnyRole('ADMIN','DIRECTIVO','MEDICO')">
+
+<div class="card shadow">
+
+<div class="card-body text-center">
+
+<h5 class="card-title">Fichas Médicas</h5>
+
+<p class="card-text">
+Gestión de fichas médicas de jugadores
+</p>
+
+<a href="/fichas" class="btn btn-warning">
+Ir al módulo
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- PERFIL DEPORTISTA -->
+
+<div class="col-md-4" sec:authorize="hasRole('DEPORTISTA')">
+
+<div class="card shadow">
+
+<div class="card-body text-center">
+
+<h5 class="card-title">Mi Información</h5>
+
+<p class="card-text">
+Consultar información personal y deportiva
+</p>
+
+<a href="/perfil" class="btn btn-dark">
+Ver perfil
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+</nav>
+
+</body>
+
+</html>

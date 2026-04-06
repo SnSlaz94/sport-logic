@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${sesion.id_sesion} != null ? 'Editar Sesión' : 'Nueva Sesión'">Sesión</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+    <h2 th:text="${sesion.id_sesion} != null ? 'Editar Sesión' : 'Nueva Sesión'">Nueva Sesión</h2>
+
+    <form th:action="@{/sesiones/guardar}" th:object="${sesion}" method="post">
+        <input type="hidden" th:field="*{id_sesion}" />
+
+        <div class="mb-3">
+            <label for="id_horario" class="form-label">Horario</label>
+            <select class="form-select" id="id_horario" th:field="*{horario.id_horario}">
+                <option th:each="horario : ${horarios}" th:value="${horario.id_horario}"
+                        th:text="${horario.dia_semana + ' ' + horario.hora_inicio + '-' + horario.hora_fin}"></option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="objetivo_sesion" class="form-label">Objetivo de la Sesión</label>
+            <input type="text" class="form-control" id="objetivo_sesion" th:field="*{objetivo_sesion}" placeholder="Ej: Mejorar técnica defensiva">
+        </div>
+
+        <div class="mb-3">
+            <label for="descripcion_actividades" class="form-label">Descripción de Actividades</label>
+            <textarea class="form-control" id="descripcion_actividades" th:field="*{descripcion_actividades}" rows="3" placeholder="Detalle de actividades"></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label for="fecha" class="form-label">Fecha</label>
+            <input type="date" class="form-control" id="fecha" th:field="*{fecha}">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        <a th:href="@{/sesiones}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+</body>
+</html>

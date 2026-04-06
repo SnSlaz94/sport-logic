@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title th:text="${ficha.id_ficha != null} ? 'Editar Ficha Médica' : 'Nueva Ficha Médica'">Formulario Ficha</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="container mt-5">
+
+<h2 th:text="${ficha.id_ficha != null} ? 'Editar Ficha Médica' : 'Nueva Ficha Médica'"></h2>
+
+<form th:action="@{/fichas/guardar}" th:object="${ficha}" method="post">
+
+<input type="hidden" th:field="*{id_ficha}" />
+
+<!-- JUGADOR -->
+
+<div class="mb-3">
+
+<label class="form-label">Jugador</label>
+
+<select class="form-select" th:field="*{jugador.id_jugador}" required>
+
+<option value="">Seleccione jugador</option>
+
+<option th:each="jugador : ${jugadores}"
+        th:value="${jugador.id_jugador}"
+        th:text="${jugador.persona.nombre + ' ' + jugador.persona.apellido}">
+</option>
+
+</select>
+
+</div>
+
+<!-- MEDICO -->
+
+<div class="mb-3">
+
+<label class="form-label">Médico Encargado</label>
+
+<select class="form-select" th:field="*{medico.id_medico}" required>
+
+<option value="">Seleccione médico</option>
+
+<option th:each="medico : ${medicos}"
+        th:value="${medico.id_medico}"
+        th:text="${medico.nombre}">
+</option>
+
+</select>
+
+</div>
+
+<!-- HISTORIAL -->
+
+<div class="mb-3">
+
+<label class="form-label">Historial Clínico</label>
+
+<textarea class="form-control"
+          th:field="*{historialClinico}"
+          rows="3"
+          required>
+</textarea>
+
+</div>
+
+<!-- OBSERVACIONES -->
+
+<div class="mb-3">
+
+<label class="form-label">Observaciones</label>
+
+<textarea class="form-control"
+          th:field="*{observaciones}"
+          rows="3">
+</textarea>
+
+</div>
+
+<!-- FECHA -->
+
+<div class="mb-3">
+
+<label class="form-label">Fecha de Revisión</label>
+
+<input type="date"
+       class="form-control"
+       th:field="*{fechaRevision}"
+       required>
+
+</div>
+
+<button type="submit" class="btn btn-success">
+Guardar
+</button>
+
+<a th:href="@{/fichas}" class="btn btn-secondary">
+Cancelar
+</a>
+
+</form>
+
+</div>
+
+</body>
+
+</html>

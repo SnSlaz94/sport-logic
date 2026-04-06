@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${horario.id_horario} != null ? 'Editar Horario' : 'Nuevo Horario'">Horarios</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+    <h2 th:text="${horario.id_horario} != null ? 'Editar Horario' : 'Nuevo Horario'">Nuevo Horario</h2>
+
+    <form th:action="@{/horarios/guardar}" th:object="${horario}" method="post">
+        <!-- Campo oculto para ID -->
+        <input type="hidden" th:field="*{id_horario}" />
+
+        <div class="mb-3">
+            <label for="dia_semana" class="form-label">Día de la Semana</label>
+            <input type="text" class="form-control" id="dia_semana" th:field="*{dia_semana}" placeholder="Ej: Lunes">
+        </div>
+
+        <div class="mb-3">
+            <label for="hora_inicio" class="form-label">Hora Inicio</label>
+            <input type="time" class="form-control" id="hora_inicio" th:field="*{hora_inicio}">
+        </div>
+
+        <div class="mb-3">
+            <label for="hora_fin" class="form-label">Hora Fin</label>
+            <input type="time" class="form-control" id="hora_fin" th:field="*{hora_fin}">
+        </div>
+
+        <div class="mb-3">
+            <label for="lugar" class="form-label">Lugar</label>
+            <input type="text" class="form-control" id="lugar" th:field="*{lugar}" placeholder="Ej: Cancha A">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        <a th:href="@{/horarios}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+</body>
+</html>
