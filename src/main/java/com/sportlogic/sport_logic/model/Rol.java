@@ -13,21 +13,12 @@ import lombok.Data;
 @Table(name="Roles")
 public class Rol {
 
-@Id
-@GeneratedValue(strategy = GenerationType.IDENTITY)
-@Column(name="id_rol")
-private Integer id_rol;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id_rol")
+    private Integer id_rol;
 
-@Column(name="nombre_rol")
-private String nombre_rol;
-
-    public String[] getNombreRol() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public String[] getNombre_rol() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
+    @Column(name="nombre_rol")
+    private String nombre_rol;
 
 }
