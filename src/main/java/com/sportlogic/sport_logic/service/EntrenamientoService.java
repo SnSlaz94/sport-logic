@@ -25,10 +25,12 @@ public class EntrenamientoService {
         return horarioRepository.findAll();
     }
 
+    @SuppressWarnings("null")
     public Horario guardarHorario(Horario horario){
         return horarioRepository.save(horario);
     }
 
+    @SuppressWarnings("null")
     public void eliminarHorario(Integer id){
         horarioRepository.deleteById(id);
     }

@@ -2,63 +2,68 @@ package com.sportlogic.sport_logic.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
+@EnableWebSecurity
+@EnableMethodSecurity // Permite usar @PreAuthorize en Controllers para mayor precisión
 public class SecurityConfig {
 
-@Bean
-public BCryptPasswordEncoder passwordEncoder() {
-    return new BCryptPasswordEncoder();
-}
+    @Bean
+    public BCryptPasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
-@Bean
-public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http
+            .authorizeHttpRequests(auth -> auth
+                // Recursos públicos
+                .requestMatchers("/login", "/css/**", "/js/**", "/images/**").permitAll()
+                
+                // Rutas base comunes
+                .requestMatchers("/inicio", "/mi-perfil").authenticated()
 
-http
-.authorizeHttpRequests(auth -> auth
+                // --- MÓDULO PERSONAS Y USUARIOS ---
+                // Solo ADMIN y DIRECTIVO gestionan la estructura (Crear/Editar/Borrar)
+                .requestMatchers("/personas/**", "/usuarios/**").hasAnyRole("ADMIN", "DIRECTIVO")
 
-.requestMatchers("/login", "/css/**", "/js/**").permitAll()
+                // --- MÓDULO ENTRENAMIENTOS (Matriz específica) ---
+                // Gestión (Crear, Editar, Borrar)
+                .requestMatchers("/entrenamientos/nuevo", "/entrenamientos/editar/**", "/entrenamientos/eliminar/**")
+                    .hasAnyRole("ADMIN", "DIRECTIVO", "ENTRENADOR")
+                // Consulta (Todos pueden ver)
+                .requestMatchers("/entrenamientos", "/entrenamientos/ver/**")
+                    .hasAnyRole("ADMIN", "DIRECTIVO", "ENTRENADOR", "MEDICO", "DEPORTISTA")
 
-.requestMatchers("/inicio").authenticated()
-.requestMatchers("/mi-perfil").authenticated()
+                // --- GESTIÓN MÉDICA Y FICHAS ---
+                // Solo ADMIN, DIRECTIVO y MÉDICO pueden crear o editar fichas
+                .requestMatchers("/fichas/nuevo", "/fichas/editar/**", "/fichas/eliminar/**")
+                    .hasAnyRole("ADMIN", "DIRECTIVO", "MEDICO")
+                // Médicos, Directivos y ADMIN pueden gestionar médicos; otros solo consultar si es necesario
+                .requestMatchers("/medicos/**").hasAnyRole("ADMIN", "DIRECTIVO")
+                // Consulta de fichas (Incluso Entrenadores y Deportistas según tu matriz)
+                .requestMatchers("/fichas", "/fichas/ver/**")
+                    .hasAnyRole("ADMIN", "DIRECTIVO", "MEDICO", "ENTRENADOR", "DEPORTISTA")
 
-.requestMatchers("/personas/**")
-.hasAnyRole("ADMIN","DIRECTIVO")
+                .anyRequest().authenticated()
+            )
+            .formLogin(form -> form
+                .loginPage("/login")
+                .defaultSuccessUrl("/inicio", true)
+                .permitAll()
+            )
+            .logout(logout -> logout
+                .logoutSuccessUrl("/login?logout")
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID")
+                .permitAll()
+            );
 
-.requestMatchers("/jugadores/**")
-.hasAnyRole("ADMIN","DIRECTIVO")
-
-.requestMatchers("/usuarios/**")
-.hasAnyRole("ADMIN","DIRECTIVO")
-
-.requestMatchers("/entrenamientos/**")
-.hasAnyRole("ADMIN","DIRECTIVO","ENTRENADOR")
-
-.requestMatchers("/medicos/**")
-.hasAnyRole("ADMIN","DIRECTIVO")
-
-.requestMatchers("/fichas/**")
-.hasAnyRole("ADMIN","DIRECTIVO","MEDICO")
-
-.anyRequest().authenticated()
-)
-
-.formLogin(form -> form
-.loginPage("/login")
-.defaultSuccessUrl("/inicio", true)
-.permitAll()
-)
-
-.logout(logout -> logout
-.logoutSuccessUrl("/login")
-.permitAll()
-);
-
-return http.build();
-
-}
-
+        return http.build();
+    }
 }

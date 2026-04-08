@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.sportlogic.sport_logic.model.Medico;
 import com.sportlogic.sport_logic.service.MedicoService;
-import com.sportlogic.sport_logic.service.PersonaService;
 import com.sportlogic.sport_logic.service.UsuarioService;
 
 @Controller
@@ -21,8 +20,6 @@ public class MedicoController {
     @Autowired
     private MedicoService medicoService;
 
-    @Autowired
-    private PersonaService personaService;
     
     @Autowired
     private UsuarioService usuarioService;
