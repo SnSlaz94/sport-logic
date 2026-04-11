@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.sportlogic.sport_logic.model.FichaMedica;
 import com.sportlogic.sport_logic.model.Jugador;
-import com.sportlogic.sport_logic.model.Persona;
 import com.sportlogic.sport_logic.model.Usuario;
 import com.sportlogic.sport_logic.repository.FichaMedicaRepository;
 import com.sportlogic.sport_logic.repository.JugadorRepository;

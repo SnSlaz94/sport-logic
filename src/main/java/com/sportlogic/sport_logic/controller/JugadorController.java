@@ -9,9 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.sportlogic.sport_logic.model.FichaMedica;
 import com.sportlogic.sport_logic.model.Jugador;
-import com.sportlogic.sport_logic.service.FichaMedicaService;
 import com.sportlogic.sport_logic.service.JugadorService;
 import com.sportlogic.sport_logic.service.PersonaService;
 import com.sportlogic.sport_logic.service.UsuarioService; // 1. Importación necesaria
@@ -28,9 +26,6 @@ public class JugadorController {
 
     @Autowired
     private UsuarioService usuarioService;
-
-    @Autowired
-    private FichaMedicaService fichaMedicaService;
 
     @GetMapping("")
     public String listarJugadores(Model model){
