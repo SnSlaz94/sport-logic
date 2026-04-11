@@ -36,7 +36,7 @@ public class FichaMedicaController {
     @GetMapping("/nuevo")
     public String crearFichaForm(Model model){
         model.addAttribute("ficha", new FichaMedica());
-        model.addAttribute("jugadores", jugadorService.listarJugadores());
+        model.addAttribute("deportistas", jugadorService.listarJugadores());
         model.addAttribute("medicos", medicoService.listarMedicos());
         return "formFicha";
     }
@@ -50,7 +50,7 @@ public class FichaMedicaController {
     @GetMapping("/editar/{id}")
     public String editarFichaForm(@PathVariable Integer id, Model model){
         model.addAttribute("ficha", fichaService.obtenerFicha(id));
-        model.addAttribute("jugadores", jugadorService.listarJugadores());
+        model.addAttribute("deportistas", jugadorService.listarJugadores());
         model.addAttribute("medicos", medicoService.listarMedicos());
         return "formFicha";
     }

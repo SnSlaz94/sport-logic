@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import com.sportlogic.sport_logic.model.Persona;
 import com.sportlogic.sport_logic.service.PersonaService;
 
+import jakarta.validation.Valid;
+
 @Controller
 @RequestMapping("/personas")
 public class PersonaController {
@@ -36,7 +38,7 @@ return "persona_form";
 }
 
 @PostMapping("/guardar")
-public String guardar(@ModelAttribute Persona persona){
+public String guardar(@Valid@ModelAttribute Persona persona){
 
 personaService.guardar(persona);
 

@@ -4,13 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
-
 import com.sportlogic.sport_logic.model.Persona;
 import com.sportlogic.sport_logic.model.Rol;
 import com.sportlogic.sport_logic.model.Usuario;
 import com.sportlogic.sport_logic.repository.PersonaRepository;
 import com.sportlogic.sport_logic.repository.RolRepository;
 import com.sportlogic.sport_logic.repository.UsuarioRepository;
+import java.time.LocalDate;
 
 @Component
 public class DataInitializer implements CommandLineRunner {
@@ -29,23 +29,21 @@ public class DataInitializer implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+        // 1. Crear rol administrador
+        Rol adminRol = rolRepository.buscarPorNombre("ADMIN").orElseGet(() -> {
+        Rol newRol = new Rol();
+        newRol.setNombre_rol("ADMIN"); // Mantiene tu estándar de BD
+        return rolRepository.save(newRol);
+    });
 
-        // 1. Crear rol administrador si no existe
-        Rol adminRol = rolRepository.findById(1).orElse(null);
-        if (adminRol == null) {
-            adminRol = new Rol();
-            adminRol.setNombre_rol("Administrador");
-            adminRol = rolRepository.save(adminRol);
-            System.out.println("Rol administrador creado");
-        }
-
-        // 2. Crear superusuario si no existe
+        // 2. Crear superusuario
         if (!usuarioRepository.findByUsername("superadmin").isPresent()) {
             Persona persona = new Persona();
             persona.setNombre("Super");
             persona.setApellido("Admin");
             persona.setDocumento("00000000");
-            persona.setFecha_nacimiento(java.time.LocalDate.of(1990, 1, 1));
+            // Aquí ya no dará error porque Persona usa LocalDate
+            persona.setFecha_nacimiento(LocalDate.of(2000, 1, 1)); 
             persona.setTelefono("3001234567");
             persona.setDireccion("Dirección Admin");
             persona = personaRepository.save(persona);
@@ -58,9 +56,6 @@ public class DataInitializer implements CommandLineRunner {
             usuario.setRol(adminRol);
 
             usuarioRepository.save(usuario);
-            System.out.println("Superusuario creado: superadmin / admin123");
-        } else {
-            System.out.println("Superusuario ya existe");
         }
     }
 }

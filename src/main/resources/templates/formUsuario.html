@@ -9,36 +9,38 @@
 <div class="container mt-5">
     <h2 th:text="${usuario.id_usuario == null} ? 'Nuevo Usuario' : 'Editar Usuario'" class="mb-4"></h2>
 
-    <form th:action="@{/usuarios/guardar}" th:object="${usuario}" method="post">
+    <form th:action="@{/usuarios/guardar}" th:object="${usuario}" method="post" autocomplete="off">
         <input type="hidden" th:field="*{id_usuario}"/>
+        
+        <div class="mb-3">
+            <label for="persona" class="form-label">Persona</label>
+            <select th:field="*{persona.id_persona}" id="personaSelect" class="form-select" required>
+                <option value="" disabled th:selected="${usuario.persona == null}">-- Seleccione Persona --</option>
+                
+                <option th:each="p : ${personas}" 
+                        th:value="${p.id_persona}"
+                        th:text="${p.nombre} + ' ' + ${p.apellido}"
+                        th:selected="${usuario.persona != null} ? ${p.id_persona} == ${usuario.persona.id_persona} : false">
+                </option>
+            </select>
+        </div>
 
         <div class="mb-3">
             <label for="username" class="form-label">Username</label>
-            <input type="text" th:field="*{username}" class="form-control" placeholder="Ingrese el username" required>
+            <input type="text" th:field="*{username}" id="username" class="form-control" placeholder="Ingrese el username" required autocomplete="off">
         </div>
 
         <div class="mb-3">
             <label for="password" class="form-label">Password</label>
             <input type="password" th:field="*{password}" class="form-control"
                    placeholder="Ingrese la contraseña" 
+                   autocomplete="new-password"
                    th:attr="required=${usuario.id_usuario == null}"> 
-            <!-- Obligatorio solo al crear -->
         </div>
 
         <div class="mb-3">
             <label for="email" class="form-label">Email</label>
-            <input type="email" th:field="*{email}" class="form-control" placeholder="Ingrese email">
-        </div>
-
-        <div class="mb-3">
-            <label for="persona" class="form-label">Persona</label>
-            <select th:field="*{persona.id_persona}" class="form-select" required>
-                <option value="" disabled th:selected="${usuario.persona == null}">-- Seleccione Persona --</option>
-                <option th:each="p : ${personas}" th:value="${p.id_persona}"
-                        th:text="${p.nombre} + ' ' + ${p.apellido}"
-                        th:selected="${usuario.persona != null} ? ${p.id_persona} == ${usuario.persona.id_persona} : false">
-                </option>
-            </select>
+            <input type="email" th:field="*{email}" class="form-control" placeholder="Ingrese email" autocomplete="off">
         </div>
 
         <div class="mb-3">
@@ -49,8 +51,6 @@
                         th:text="${r.nombre_rol}"
                         th:selected="${usuario.rol != null} ? ${r.id_rol} == ${usuario.rol.id_rol} : false">
                 </option>
-
-                
             </select>
         </div>
 
@@ -58,5 +58,42 @@
         <a th:href="@{/usuarios}" class="btn btn-secondary ms-2">Cancelar</a>
     </form>
 </div>
+
+<script th:inline="javascript">
+    document.addEventListener("DOMContentLoaded", function() {
+        const personaSelect = document.getElementById('personaSelect');
+        const usernameInput = document.getElementById('username');
+        
+        const isNewUser = /*[[${usuario.id_usuario == null}]]*/ false;
+
+        if (isNewUser) {
+            personaSelect.addEventListener('change', function() {
+                if (personaSelect.selectedIndex > 0) {
+                    // Obtenemos el texto: "Brayan Barón"
+                    const selectedText = personaSelect.options[personaSelect.selectedIndex].text.trim();
+                    const partes = selectedText.split(/\s+/); // Divide por espacios
+
+                    if (partes.length >= 2) {
+                        // Caso con nombre y apellido: "Brayan_B"
+                        const nombre = partes[0];
+                        const inicialApellido = partes[1].charAt(0).toUpperCase();
+                        
+                        // Combinamos y limpiamos tildes
+                        let sugerencia = `${nombre}_${inicialApellido}`;
+                        sugerencia = sugerencia.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
+                        usernameInput.value = sugerencia;
+                    } else if (partes.length === 1) {
+                        // Caso con un solo nombre: "Brayan"
+                        let sugerencia = partes[0].normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+                        usernameInput.value = sugerencia;
+                    }
+                } else {
+                    usernameInput.value = "";
+                }
+            });
+        }
+    });
+</script>
 </body>
 </html>

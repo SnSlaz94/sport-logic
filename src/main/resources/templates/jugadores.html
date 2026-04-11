@@ -15,7 +15,7 @@
         <thead class="table-dark">
             <tr>
                 <th>ID</th>
-                <th>Nombre</th>
+                <th>Nombre y Apellido</th>
                 <th>Posición</th>
                 <th>Acciones</th>
             </tr>
@@ -23,12 +23,13 @@
         <tbody>
             <tr th:each="jugador : ${jugadores}">
                 <td th:text="${jugador.id_jugador}"></td>
-                <td th:text="${jugador.persona != null} ? ${jugador.persona.nombre} : 'Sin asignar'"></td>
+                <td th:text="${jugador.persona != null} ? ${jugador.persona.nombre + ' ' + jugador.persona.apellido} : 'Sin asignar'"></td>
                 <td th:text="${jugador.posicion_campo}"></td>
                 <td>
+                    <a th:href="@{'/jugadores/perfil/' + ${jugador.id_jugador}}" class="btn btn-sm btn-info me-1">Perfil</a>
                     <a th:href="@{'/jugadores/editar/' + ${jugador.id_jugador}}" class="btn btn-sm btn-warning me-1">Editar</a>
                     <a th:href="@{'/jugadores/eliminar/' + ${jugador.id_jugador}}" class="btn btn-sm btn-danger"
-                       onclick="return confirm('¿Está seguro de eliminar este jugador?')">Eliminar</a>
+                    onclick="return confirm('¿Está seguro de eliminar este jugador?')">Eliminar</a>
                 </td>
             </tr>
         </tbody>

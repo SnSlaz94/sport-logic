@@ -15,7 +15,7 @@ public class JugadorService {
 @Autowired
 private JugadorRepository jugadorRepository;
 
-public List<Jugador> listarJugadores(){
+    public List<Jugador> listarJugadores() {
     return jugadorRepository.findAll();
 }
 
@@ -33,6 +33,11 @@ return jugador.orElse(null);
 
 public void eliminarJugador(Integer id){
     jugadorRepository.deleteById(id);
+}
+
+public Jugador findById(Integer id) {
+    // Usamos el repositorio para buscar al futbolista por su ID
+    return jugadorRepository.findById(id).orElse(null);
 }
 
 }

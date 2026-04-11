@@ -9,7 +9,7 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">SportLogic - Entrenamientos</a>
+            <a class="navbar-brand" href="/inicio">SportLogic</a>
             <div class="collapse navbar-collapse">
                 <ul class="navbar-nav ms-auto">
                     <form th:action="@{/logout}" method="post">
@@ -33,7 +33,7 @@
                             Total de horarios registrados: 
                             <span th:text="${horariosCount}">0</span>
                         </p>
-                        <a th:href="@{/horarios}" class="btn btn-light">Gestionar Horarios</a>
+                        <a th:href="@{/horarios}" class="btn btn-light">Entrar a Horarios</a>
                     </div>
                 </div>
             </div>
@@ -47,7 +47,7 @@
                             Total de sesiones registradas: 
                             <span th:text="${sesionesCount}">0</span>
                         </p>
-                        <a th:href="@{/sesiones}" class="btn btn-light">Gestionar Sesiones</a>
+                        <a th:href="@{/sesiones}" class="btn btn-light">Entrar a Sesiones</a>
                     </div>
                 </div>
             </div>

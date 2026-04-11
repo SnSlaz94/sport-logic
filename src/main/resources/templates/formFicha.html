@@ -20,41 +20,29 @@
 
 <!-- JUGADOR -->
 
-<div class="mb-3">
-
-<label class="form-label">Jugador</label>
-
-<select class="form-select" th:field="*{jugador.id_jugador}" required>
-
-<option value="">Seleccione jugador</option>
-
-<option th:each="jugador : ${jugadores}"
-        th:value="${jugador.id_jugador}"
-        th:text="${jugador.persona.nombre + ' ' + jugador.persona.apellido}">
-</option>
-
-</select>
-
+<div class="form-group">
+    <label for="usuario">Deportista:</label>
+    <select th:field="*{jugador.id_jugador}" class="form-control">
+        <option value="">-- Seleccione un Jugador --</option>
+        <option th:each="u : ${deportistas}" 
+                th:value="${u.id_jugador}" 
+                th:text="${u.persona.nombre + ' ' + u.persona.apellido}">
+        </option>
+    </select>
 </div>
 
 <!-- MEDICO -->
 
 <div class="mb-3">
-
-<label class="form-label">Médico Encargado</label>
-
-<select class="form-select" th:field="*{medico.id_medico}" required>
-
-<option value="">Seleccione médico</option>
-
-<option th:each="medico : ${medicos}"
-        th:value="${medico.id_medico}"
-        th:text="${medico.persona.nombre + ' ' + medico.persona.apellido}">
-</option>
-
-</select>
-
-</div>
+    <label class="form-label">Médico Encargado</label>
+    <select th:field="*{medico.id_medico}" class="form-control" required>
+        <option value="">Seleccione médico</option>
+        <option th:each="m : ${medicos}" 
+                th:value="${m.id_medico}" 
+                th:text="${m.persona != null} ? (${m.persona.nombre} + ' ' + ${m.persona.apellido}) : 'Médico ID: ' + ${m.id_medico}">
+        </option>
+    </select>
+</div>     
 
 <!-- HISTORIAL -->
 

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       th:replace="~{layout/layout :: main-layout(~{::section})}">
 <body>
     <section>
@@ -10,67 +11,95 @@
             </div>
         </div>
 
-        <div class="row g-4">
-            <div class="col-md-4" sec:authorize="hasAnyRole('ADMIN','DIRECTIVO', 'ENTRENADOR','MEDICO',)">
+        <div class="row g-4 justify-content-center">
+            
+            <div class="col-md-4" sec:authorize="hasAnyRole('ADMIN','DIRECTIVO', 'ENTRENADOR','MEDICO')">
                 <div class="card h-100 shadow-sm border-0 card-hover">
-                    <div class="card-body text-center p-4">
+                    <div class="card-body text-center p-4 d-flex flex-column">
                         <div class="display-5 text-success mb-3"><i class="bi bi-people"></i></div>
                         <h5 class="card-title fw-bold">Jugadores</h5>
-                        <p class="card-text text-muted small">Administrar altas, bajas y expedientes de deportistas.</p>
-                        <a href="/jugadores" class="btn btn-success w-100 rounded-pill">Gestionar</a>
+                        <p class="card-text text-muted small flex-grow-1">Administrar altas, bajas y expedientes de deportistas.</p>
+                        <a href="/jugadores" class="btn btn-primary w-100 rounded-pill mt-3">Entrar</a>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4" sec:authorize="hasAnyRole('ADMIN','DIRECTIVO','ENTRENADOR' )">
+
+            <div class="col-md-4" sec:authorize="hasAnyRole('ADMIN','DIRECTIVO','ENTRENADOR')">
                 <div class="card h-100 shadow-sm border-0 card-hover">
-                    <div class="card-body text-center p-4">
+                    <div class="card-body text-center p-4 d-flex flex-column">
                         <div class="display-5 text-primary mb-3"><i class="bi bi-calendar-event"></i></div>
                         <h5 class="card-title fw-bold">Entrenamientos</h5>
-                        <p class="card-text text-muted small">Programar entrenamientos, registrar asistencias y evaluaciones.</p>
-                        <a href="/entrenamientos" class="btn btn-primary w-100 rounded-pill"> Gestionar</a>                                       
+                        <p class="card-text text-muted small flex-grow-1">Programar entrenamientos, registrar asistencias y evaluaciones.</p>
+                        <a href="/entrenamientos" class="btn btn-primary w-100 rounded-pill mt-3">Gestionar</a>
                     </div>
                 </div>
             </div>
+
             <div class="col-md-4" sec:authorize="hasAnyRole('ADMIN','DIRECTIVO', 'MEDICO')">
                 <div class="card h-100 shadow-sm border-0 card-hover">
-                    <div class="card-body text-center p-4">
+                    <div class="card-body text-center p-4 d-flex flex-column">
                         <div class="display-5 text-warning mb-3"><i class="bi bi-heart"></i></div>
-                        <h5 class="card-title fw-bold">Gestion Medica</h5>
-                        <p class="card-text text-muted small">Registrar resultados, estadísticas y análisis de rendimiento</p>
-                        <a href="/fichas" class="btn btn-warning w-100 rounded-pill">Gestionar</a>
+                        <h5 class="card-title fw-bold">Gestión de Ficha Médica</h5>
+                        <p class="card-text text-muted small flex-grow-1">Registrar resultados, estadísticas y análisis de rendimiento.</p>
+                        <a href="/fichas" class="btn btn-primary w-100 rounded-pill mt-3">Entrar</a>
                     </div>
                 </div>
             </div>
+
             <div class="col-md-4" sec:authorize="hasAnyRole('ADMIN','DIRECTIVO')">
                 <div class="card h-100 shadow-sm border-0 card-hover">
-                    <div class="card-body text-center p-4">
+                    <div class="card-body text-center p-4 d-flex flex-column">
                         <div class="display-5 text-danger mb-3"><i class="bi bi-shield-lock"></i></div>
                         <h5 class="card-title fw-bold">Usuarios</h5>
-                        <p class="card-text text-muted small">Gestionar cuentas de usuario, roles y permisos de acceso.</p>
-                        <a href="/usuarios" class="btn btn-danger w-100 rounded-pill">Gestionar</a>
+                        <p class="card-text text-muted small flex-grow-1">Gestionar cuentas de usuario, roles y permisos de acceso.</p>
+                        <a href="/usuarios" class="btn btn-primary w-100 rounded-pill mt-3">Entrar</a>
                     </div>
                 </div>
             </div>
+
             <div class="col-md-4" sec:authorize="hasAnyRole('ADMIN','DIRECTIVO')">
                 <div class="card h-100 shadow-sm border-0 card-hover">
-                    <div class="card-body text-center p-4">
-                        <div class="display-5 text-info mb-3"><i class="bi bi-people"></i></div>
-                        <h5 class="card-title fw-bold">Personas</h5>
-                        <p class="card-text text-muted small">Gestionar información de contacto y datos personales.</p>
-                        <a href="/personas" class="btn btn-info w-100 rounded-pill">Gestionar</a>
+                    <div class="card-body text-center p-4 d-flex flex-column">
+                        <div class="display-5 text-danger mb-3"><i class="bi bi-people"></i></div>
+                        <h5 class="card-title fw-bold">Gestión de Médicos</h5>
+                        <p class="card-text text-muted small flex-grow-1">Registra y administra el personal médico de la escuela.</p>
+                        <a href="/medicos" class="btn btn-primary w-100 rounded-pill mt-3">Entrar</a>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 mt-4" sec:authorize="hasAnyRole('ADMIN','DIRECTIVO','ENTRENADOR','MEDICO','JUGADOR')">
+
+            <div class="col-md-4" sec:authorize="hasAnyRole('ADMIN','DIRECTIVO')">
                 <div class="card h-100 shadow-sm border-0 card-hover">
-                        <div class="card-body text-center p-4">
-                            <div class="display-5 text-info mb-3"><i class="bi bi-clock"></i></div>
-                            <h5 class="card-title fw-bold">Horarios</h5>
-                            <p class="card-text text-muted small">Gestionar horarios de entrenamiento y actividades.</p>
-                            <a href="/horarios" class="btn btn-info w-100 rounded-pill">Gestionar</a>
-                        </div>
+                    <div class="card-body text-center p-4 d-flex flex-column">
+                        <div class="display-5 text-info mb-3"><i class="bi bi-person-lines-fill"></i></div>
+                        <h5 class="card-title fw-bold">Personas</h5>
+                        <p class="card-text text-muted small flex-grow-1">Gestionar información de contacto y datos personales generales.</p>
+                        <a href="/personas" class="btn btn-primary w-100 rounded-pill mt-3">Entrar</a>
                     </div>
                 </div>
+            </div>
+
+            <div class="col-md-4" sec:authorize="hasRole('DEPORTISTA')">
+                <div class="card h-100 shadow-sm border-0 card-hover">
+                    <div class="card-body text-center p-4 d-flex flex-column">
+                        <div class="display-5 text-primary mb-3"><i class="bi bi-calendar-check"></i></div>
+                        <h5 class="card-title fw-bold">Mis Sesiones</h5>
+                        <p class="card-text text-muted small flex-grow-1">Consulta aquí tus horarios y detalles de práctica asignados.</p>
+                        <a href="/sesiones" class="btn btn-primary w-100 rounded-pill mt-3">Ver Agenda</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4" sec:authorize="hasRole('DEPORTISTA')">
+                <div class="card h-100 shadow-sm border-0 card-hover">
+                    <div class="card-body text-center p-4 d-flex flex-column">
+                        <div class="display-5 text-info mb-3"><i class="bi bi-person-badge"></i></div>
+                        <h5 class="card-title fw-bold">Mi Perfil</h5>
+                        <p class="card-text text-muted small flex-grow-1">Gestionar mis datos personales y de contacto actualizado.</p>
+                        <a href="/mi-perfil" class="btn btn-primary w-100 rounded-pill mt-3">Ver Perfil</a>
+                    </div>
+                </div>
+            </div>
 
         </div>
     </section>

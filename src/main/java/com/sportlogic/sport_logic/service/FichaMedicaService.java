@@ -29,4 +29,11 @@ public class FichaMedicaService {
     public void eliminarFicha(Integer id){
         fichaMedicaRepository.deleteById(id);
     }
+    public FichaMedica obtenerFichaPorJugador(Integer idJugador) {
+    return fichaMedicaRepository.findByJugadorId(idJugador);
+    }
+
+    public FichaMedica findByJugadorId(Integer id) {
+    return fichaMedicaRepository.findByJugadorId(id);
+    }   
 }

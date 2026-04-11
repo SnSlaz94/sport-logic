@@ -10,16 +10,19 @@ import com.sportlogic.sport_logic.model.Persona;
 import com.sportlogic.sport_logic.model.Usuario;
 import com.sportlogic.sport_logic.repository.UsuarioRepository;
 
+
+
 @Service
 public class UsuarioService {
-
-    @Autowired
-    private UsuarioRepository usuarioRepository;
+    private static UsuarioRepository usuarioRepository;
+    
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
-
+    public UsuarioService(UsuarioRepository usuarioRepository) {
+        UsuarioService.usuarioRepository = usuarioRepository;
+    }
     public List<Usuario> listarUsuarios() {
         return usuarioRepository.findAll();
     }
@@ -38,9 +41,18 @@ public class UsuarioService {
         usuarioRepository.deleteById(id);
     }
 
-    public List<Persona> obtenerPersonasMedicos(){
+    public static List<Usuario> obtenerUsuariosDeportistas() {
+        return usuarioRepository.findAll();
+    }
 
-    return usuarioRepository.obtenerPersonasMedicos();
+    public List<Persona> obtenerPersonasMedicos() {
+        return usuarioRepository.obtenerPersonasMedicos();
+    }
+    public List<Usuario> obtenerPersonasDeportistas() {
+    return usuarioRepository.obtenerUsuariosDeportistas(); 
+    }
 
+    public Usuario obtenerUsuarioPorPersona(Integer idPersona) {
+    return usuarioRepository.findByPersonaId(idPersona);
 }
 }

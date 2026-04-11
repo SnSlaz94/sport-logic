@@ -12,9 +12,12 @@
     <form th:action="@{/jugadores/guardar}" th:object="${jugador}" method="post">
         <div class="mb-3">
             <label class="form-label">Persona</label>
-            <select class="form-control" th:field="*{persona.id_persona}">
-                <option th:each="p : ${personas}" th:value="${p.id_persona}" 
-                        th:text="${p.nombre + ' ' + p.apellido}"></option>
+           <select th:field="*{persona.id_persona}" class="form-control">
+                <option value="">-- Seleccione un Deportista --</option>
+                <option th:each="u : ${personas}" 
+                        th:value="${u.persona.id_persona}" 
+                        th:text="${u.persona.nombre + ' ' + u.persona.apellido}">
+                </option>
             </select>
         </div>
         <div class="mb-3">

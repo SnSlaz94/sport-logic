@@ -37,6 +37,11 @@
 <div class="mb-3">
 <label>Fecha Nacimiento</label>
 <input type="date" th:field="*{fecha_nacimiento}" class="form-control">
+        <span th:if="${#fields.hasErrors('fecha_nacimiento')}" 
+              th:errors="*{fecha_nacimiento}" 
+              style="color: red;">
+            Fecha inválida
+        </span>
 </div>
 
 <div class="mb-3">

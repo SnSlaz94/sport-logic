@@ -32,20 +32,24 @@ public class SecurityConfig {
                 // Solo ADMIN y DIRECTIVO gestionan la estructura (Crear/Editar/Borrar)
                 .requestMatchers("/personas/**", "/usuarios/**").hasAnyRole("ADMIN", "DIRECTIVO")
 
-                // --- MÓDULO ENTRENAMIENTOS (Matriz específica) ---
-                // Gestión (Crear, Editar, Borrar)
-                .requestMatchers("/entrenamientos/nuevo", "/entrenamientos/editar/**", "/entrenamientos/eliminar/**")
+                // --- MÓDULO ENTRENAMIENTOS ---
+                // 1. Gestión (Solo los que pueden modificar)
+                .requestMatchers(
+                    "/horarios/nuevo", "/horarios/editar/**", "/horarios/guardar", "/horarios/eliminar/**",
+                    "/sesiones/nuevo", "/sesiones/editar/**", "/sesiones/guardar", "/sesiones/eliminar/**")
                     .hasAnyRole("ADMIN", "DIRECTIVO", "ENTRENADOR")
-                // Consulta (Todos pueden ver)
-                .requestMatchers("/entrenamientos", "/entrenamientos/ver/**")
-                    .hasAnyRole("ADMIN", "DIRECTIVO", "ENTRENADOR", "MEDICO", "DEPORTISTA")
 
-                // --- GESTIÓN MÉDICA Y FICHAS ---
+                // 2. Consulta (Todos, incluido DEPORTISTA)
+                .requestMatchers("/entrenamientos").hasAnyRole("ADMIN", "DIRECTIVO", "ENTRENADOR", "MEDICO")
+                // 2. Las listas de horarios y sesiones SÍ son para deportistas
+                .requestMatchers("/horarios", "/sesiones").hasAnyRole("ADMIN", "DIRECTIVO", "ENTRENADOR", "MEDICO", "DEPORTISTA")
+                                // --- GESTIÓN MÉDICA Y FICHAS ---
                 // Solo ADMIN, DIRECTIVO y MÉDICO pueden crear o editar fichas
                 .requestMatchers("/fichas/nuevo", "/fichas/editar/**", "/fichas/eliminar/**")
                     .hasAnyRole("ADMIN", "DIRECTIVO", "MEDICO")
                 // Médicos, Directivos y ADMIN pueden gestionar médicos; otros solo consultar si es necesario
-                .requestMatchers("/medicos/**").hasAnyRole("ADMIN", "DIRECTIVO")
+                .requestMatchers("/medicos/**")
+                    .hasAnyRole("ADMIN", "DIRECTIVO")
                 // Consulta de fichas (Incluso Entrenadores y Deportistas según tu matriz)
                 .requestMatchers("/fichas", "/fichas/ver/**")
                     .hasAnyRole("ADMIN", "DIRECTIVO", "MEDICO", "ENTRENADOR", "DEPORTISTA")

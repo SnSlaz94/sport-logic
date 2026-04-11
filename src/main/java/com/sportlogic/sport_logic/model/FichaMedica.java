@@ -14,7 +14,7 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name="FichasMedicas")
+@Table(name="Fichas_medicas")
 public class FichaMedica {
 
     @Id
@@ -28,6 +28,10 @@ public class FichaMedica {
     @ManyToOne
     @JoinColumn(name="id_medico")
     private Medico medico;
+
+    @ManyToOne
+    @JoinColumn(name = "id_usuario")
+    private Usuario usuario;
 
     @Column(length=1000)
     private String historialClinico;

@@ -20,19 +20,14 @@
 <input type="hidden" th:field="*{id_medico}" />
 
 <div class="mb-3">
-<label class="form-label">Seleccionar Médico</label>
-
-<select class="form-select" th:field="*{persona.id_persona}" required>
-
-<option value="">Seleccione</option>
-
-<option th:each="persona : ${personasMedicos}"
-        th:value="${persona.id_persona}"
-        th:text="${persona.nombre + ' ' + persona.apellido}">
-</option>
-
-</select>
-
+    <label class="form-label">Seleccionar Persona (Rol Médico)</label>
+    <select class="form-select" th:field="*{persona.id_persona}" required>
+        <option value="">Seleccione</option>
+        <option th:each="persona : ${personasMedicos}"
+                th:value="${persona.id_persona}"
+                th:text="${persona.nombre + ' ' + persona.apellido}">
+        </option>
+    </select>
 </div>
 
 <div class="mb-3">

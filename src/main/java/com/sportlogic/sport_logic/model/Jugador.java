@@ -6,21 +6,25 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 
 @Data
 @Entity
-@Table(name="Jugadores")
+@Table(name = "jugadores")
 public class Jugador {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id_jugador;
 
-    @ManyToOne(optional = true)
-    @JoinColumn(name="id_persona")
+    @OneToOne
+    @JoinColumn(name = "id_persona")
     private Persona persona;
 
     private String posicion_campo;
+
+    @ManyToOne
+    @JoinColumn(name = "id_horario")
+    private Horario horario;
 }

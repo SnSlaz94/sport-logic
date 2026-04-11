@@ -1,0 +1,24 @@
+body{
+background:#f4f6f9;
+font-family:Segoe UI;
+}
+
+.card{
+border:none;
+border-radius:12px;
+box-shadow:0 4px 15px rgba(0,0,0,0.1);
+transition:0.3s;
+}
+
+.card:hover{
+transform:scale(1.03);
+}
+
+.navbar{
+background:#1c2536 !important;
+}
+
+.btn-primary{
+background:#1c6ed5;
+border:none;
+}

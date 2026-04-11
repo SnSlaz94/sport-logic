@@ -17,10 +17,14 @@
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
         <div class="container">
-            <a class="navbar-brand" href="/inicio"><i class="bi bi-trophy-fill me-2"></i>SportLogic</a>
+            <a class="navbar-brand d-flex align-items-center" href="/inicio">
+                <img src="images/logo.jpg" alt="Logo" class="d-inline-block align-text-top me-2" style="block-size: 40px; inline-size: auto;">
+                <span>SportLogic</span>
+            </a>
+
             <div class="d-flex align-items-center">
                 <span class="text-light me-3" sec:authentication="name">Usuario</span>
-                <a href="/mi-perfil" class="btn btn-outline-light btn-sm me-2">Perfil</a>
+                <a href="/perfil" class="btn btn-outline-light btn-sm me-2">Perfil</a>
                 <form th:action="@{/logout}" method="post" class="m-0">
                     <button class="btn btn-danger btn-sm">Salir</button>
                 </form>
